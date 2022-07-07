@@ -1,0 +1,12 @@
+package disease;
+import model.Patient;
+
+rule "Risk Flag Is Dysphagia"
+    when
+        $p: Patient(status.equals("Active"),
+        (code.container("R13.1") || code.container("R13.19") || code.container("R13.12") || code.container("R13.13") || code.container("R13.14")),
+        then
+            $patient.setPreFill("y");
+            System.out.println("Dysphagia can be risk");
+            System.out.println("Y");
+    end

@@ -1,0 +1,38 @@
+package backwardchaining;
+
+import model.Location;
+
+declare isOffice
+    p : Location
+end
+
+declare isThing
+    g: Location
+end
+
+
+rule "Location based rule"
+
+    when
+        $p: Location(location.equals("office"))
+    then
+        System.out.println("This is my office location");
+        insertLogical(new isOffice($p));
+end
+
+rule "Thing based rule"
+    when
+        $g : Location(thing.equals("desk"))
+        isOffice()
+    then
+        System.out.println("this is desk ");
+        insertLogical(new isThing($g));
+end
+
+rule "Both are valid"
+    when
+        isOffice()
+        isThing()
+    then
+        System.out.println("Both are in office!!");
+end
